@@ -1,0 +1,109 @@
+/* style.css */
+
+/* Basic reset and font */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9faff;
+  color: #222;
+}
+
+/* Center everything vertically and horizontally */
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* Page title */
+h2 {
+  margin-bottom: 24px;
+  font-weight: 700;
+  color: #0047ab;
+}
+
+/* Style the form */
+form {
+  background: white;
+  padding: 30px 35px;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Label and inputs in one line */
+form input[type="text"],
+form input[type="password"] {
+  padding: 10px 12px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  border: 1.8px solid #ccc;
+  border-radius: 6px;
+  transition: border-color 0.3s ease;
+  width: 100%;
+  outline: none;
+}
+
+form input[type="text"]:focus,
+form input[type="password"]:focus {
+  border-color: #0047ab;
+}
+
+/* The button */
+form button {
+  background-color: #0047ab;
+  color: white;
+  border: none;
+  padding: 14px 0;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-bottom: 20px;
+}
+
+form button:hover {
+  background-color: #002d70;
+}
+
+/* Links inside form */
+form a {
+  color: #0047ab;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  text-align: center;
+}
+
+form a:hover {
+  text-decoration: underline;
+}
+
+/* If the link is outside form (like in login page) */
+body > a {
+  margin-top: 12px;
+  font-weight: 600;
+  color: #0047ab;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+body > a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 400px) {
+  form {
+    width: 90%;
+    padding: 25px 20px;
+  }
+}

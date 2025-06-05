@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dream Interpreter</title>
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+/>
+
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0f4f8;
+      color: #222;
+      max-width: 700px;
+      margin: 40px auto;
+      padding: 0 20px;
+      line-height: 1.6;
+    }
+
+    h1 {
+      text-align: center;
+      color: #0047ab;
+      margin-bottom: 30px;
+    }
+
+    form#dreamForm {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 25px;
+      width: 100%;
+    }
+
+    /* Container for textarea + mic */
+    .textarea-container {
+      position: relative;
+      width: 100%;
+    }
+
+    form#dreamForm textarea {
+      width: 100%;
+      padding: 12px 45px 12px 15px; /* extra right padding for mic */
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1.8px solid #ccc;
+      resize: vertical;
+      min-height: 120px;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+    }
+
+    /* Mic button inside textarea */
+    #micButton {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      font-size: 24px;
+      color: black;
+      padding: 0;
+      line-height: 1;
+      user-select: none;
+    }
+
+    form#dreamForm button[type="submit"] {
+      background-color: #0047ab;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 5px;
+      width: 150px;
+    }
+
+    #interpretation {
+      font-weight: bold;
+      color: #222;
+      background-color: #e0eafc;
+      padding: 12px;
+      border-radius: 8px;
+      margin-top: 20px;
+      min-height: 40px;
+      white-space: pre-wrap;
+    }
+
+    #recordingIndicator {
+      color: red;
+      font-weight: bold;
+      margin-top: 10px;
+      display: none;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>AI Dream Interpreter</h1>
+  <form id="dreamForm" onsubmit="event.preventDefault(); submitDream();">
+    <div class="textarea-container">
+      <textarea id="dreamText" placeholder="Describe your dream here..."></textarea>
+      <button type="button" id="micButton" onclick="startRecognition()" title="Speak your dream">
+  <i class="fas fa-microphone"></i>
+</button>
+    </div>
+    <button type="submit">Interpret</button>
+    <div id="recordingIndicator">🔴 Listening...</div>
+  </form>
+
+  <div id="interpretation"></div>
+
+  <script>
+    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    recognition.lang = 'en-US';
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    function startRecognition() {
+      recognition.start();
+    }
+
+    recognition.onstart = function() {
+      document.getElementById('recordingIndicator').style.display = 'block';
+    };
+
+    recognition.onend = function() {
+      document.getElementById('recordingIndicator').style.display = 'none';
+    };
+
+    recognition.onresult = function(event) {
+      const transcript = event.results[0][0].transcript;
+      const dreamText = document.getElementById('dreamText');
+      dreamText.value = transcript;
+      submitDream();
+    };
+
+    recognition.onerror = function(event) {
+      alert("Speech recognition error: " + event.error);
+      document.getElementById('recordingIndicator').style.display = 'none';
+    };
+
+    function submitDream() {
+      const text = document.getElementById('dreamText').value.trim();
+      if (!text) {
+        alert("Please enter or speak a dream first.");
+        return;
+      }
+
+      fetch('/interpret', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ dream_text: text })
+      })
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('interpretation').textContent = data.interpretation || 'Error interpreting dream.';
+      })
+      .catch(error => {
+        document.getElementById('interpretation').textContent = 'An error occurred: ' + error;
+      });
+    }
+  </script>
+</body>
+</html>
