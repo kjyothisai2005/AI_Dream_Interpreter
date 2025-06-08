@@ -6,7 +6,7 @@
     body {
       margin: 0;
       padding: 0;
-      background-color: #0a0f2c;
+      background-color: black;
       height: 100vh;
       overflow: hidden;
       font-family: Arial, sans-serif;
@@ -22,10 +22,10 @@
       height: 100%;
     }
 
-    /* 🔷 Smooth, pulsing, rotating square */
+   
     .pulsing-square {
-      width: 50px;
-      height: 50px;
+      width: 40px;
+      height: 40px;
       border-radius: 10px;
       background-image: linear-gradient(rgb(255, 0, 0), rgb(243, 222, 116));
       position: absolute;
@@ -53,7 +53,7 @@
       }
     }
 
-    /* 🖼 Logo and Text */
+   
     .content {
       display: none;
       opacity: 0;
@@ -96,12 +96,12 @@
 </head>
 <body>
   <div class="splash-container">
-    <!-- 🔷 Smooth pulsing rotating square -->
+   
     <div class="animation-group">
       <div class="pulsing-square"></div>
     </div>
 
-    <!-- 🖼 Logo and content -->
+   
     <div class="content">
       <img src="{{ url_for('static', filename='home.png') }}" alt="Logo">
       <h1>AI Dream Interpreter</h1>

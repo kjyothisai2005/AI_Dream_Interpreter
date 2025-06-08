@@ -1,14 +1,10 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
   <title>AI Dream Interpreter</title>
   <style>
     body {
-      /* background-image: url('/static/home.png'); */
-      background-size: cover;           /* Scales the image to cover the whole screen */
-  background-repeat: no-repeat;     /* Prevents repeating the image */
-  background-position: center;      /* Keeps it centered */
-  background-attachment: fixed;
+      background-color: black;
       color: white;
       text-align: center;
       font-family: Arial, sans-serif;
@@ -30,12 +26,233 @@
     .buttons a:hover {
       background-color: #3b82f6;
     }
+    .typewriter {
+      text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+      /* border-right: 2px solid #fff; */
+      white-space: nowrap;
+      overflow: hidden;
+      color: #ff2770;
+      margin-top:50px ;
+      margin: 100px auto 20px;
+      animation: blink 0.7s step-end infinite;
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
   </style>
 </head>
 <body>
-  <div class="buttons">
+   <h1 class="typewriter" id="typewriter"></h1>
+ <div class="buttons">
     <a href="/login">Get Started!!</a>
-    <!-- <a href="/register">Register</a> -->
-  </div>
+   <a href="/register">Register</a> -->
+  <!-- </div>
+  <script>
+const messages = [
+  "Let your dreams speak through AI",
+  "Discover hidden meanings in your sleep",
+  "Decode the language of your subconscious"
+];
+
+let idx  = 0;   // which sentence
+let pos  = 0;   // character position within that sentence
+let back = false;
+let speed;
+
+const out = document.getElementById('typewriter');
+
+function tick () {
+  const text = messages[idx];
+
+  /* ----- write or delete one character ----- */
+  out.textContent = text.substring(0, pos);
+
+  if (back)      pos--;           // deleting
+  else           pos++;           // typing
+
+  /* ----- state changes ----- */
+  if (!back && pos === text.length + 1) {          // finished typing
+    back  = true;
+    speed = 1200;                                  // long pause
+  }
+  else if (back && pos === -1) {                   // finished deleting
+    back = false;
+    idx  = (idx + 1) % messages.length;            // next sentence
+    speed = 400;                                   // short pause
+  }
+  else {
+    speed = back ? 40 : 100;                       // normal speed
+  }
+
+  setTimeout(tick, speed);
+}
+
+tick();
+</script>
+ 
+</body> -->
+<!-- </html> --> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>AI Dream Interpreter – Landing</title>
+
+  <style>
+    body{
+      background:#000;color:#fff;font-family:Arial,Helvetica,sans-serif;
+      text-align:center;margin:0;padding:0;
+    }
+
+    /* single line that will be typed / erased */
+   #typewriter {
+  display: inline-block;
+  margin: 160px auto 40px;
+  font-size: 28px;
+  font-weight: bold;
+  white-space: nowrap;
+  border-right: 2px solid #fff;
+  padding-right: 6px;
+
+  /* Gradient Text */
+  background: linear-gradient(90deg, #ff006a, #00ffa2, #ffcc00);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+
+  animation: blink 0.8s step-end infinite;
+}
+
+    @keyframes blink{
+      50%{border-color:transparent;}
+    }
+    #typewriter{animation:blink .8s step-end infinite;}
+
+    .btn  {
+  margin: 50px;
+  padding: 15px 30px;
+  border: 2px solid #ff2770;
+  outline: none;
+  color: #FFF;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  border-radius: 12px;
+  
+}
+.btn a{
+ text-decoration: none;
+ color: white;
+ font-size: 18px;
+ font-weight: 600;
+}
+.btn::after {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #000 ;
+  animation: glowing 20s linear infinite;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
+}
+/* glow */
+.btn::before {
+  content: "";
+  background: linear-gradient(
+    45deg,
+    #FF0000, #FF7300, #FFFB00, #48FF00,
+    #00FFD5, #002BFF, #FF00C8, #FF0000
+  );
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 600%;
+  z-index: -1;
+  width: calc(100% + 3px);
+  height:  calc(100% + 3px);
+  filter: blur(8px);
+  animation: glowing 20s linear infinite;
+  transition: opacity .3s ease-in-out;
+  border-radius: 10px;
+  opacity: 0;
+}
+
+@keyframes glowing  {
+  0% {background-position: 0 0;}
+  50% {background-position: 400% 0;}
+  100% {background-position: 0 0;}
+}
+
+/* hover */
+.btn:hover::before {
+  opacity: 1;
+}
+
+.btn:active:after {
+  background: transparent;
+}
+
+.btn:active {
+  color: #000;
+  font-weight: bold;
+}
+  </style>
+</head>
+<body>
+   
+  <!-- single target line -->
+  <h1 id="typewriter"></h1>
+<br>
+  <button class="btn">
+    <a href="/login">Get Started !!</a>
+  </button>
+
+  <script>
+    const lines = [
+      "Let your dreams speak through AI",
+      "Discover hidden meanings in your sleep",
+      "Decode the language of your subconscious"
+    ];
+
+    let line = 0, pos = 0, back = false, delay;
+
+    const el = document.getElementById("typewriter");
+
+    function tick(){
+      const text = lines[line];
+
+      /* write or delete one char */
+      el.textContent = text.substring(0,pos);
+
+      back ? pos-- : pos++;
+
+      /* finished typing */
+      if(!back && pos === text.length+1){
+        back = true;
+        delay = 1200;                 // pause full line
+      }
+      /* finished deleting */
+      else if(back && pos === -1){
+        back = false;
+        line = (line + 1) % lines.length;
+        delay = 400;                  // short pause before next
+      }
+      else{
+        delay = back ? 40 : 90;       // typing / deleting speed
+      }
+
+      setTimeout(tick, delay);
+    }
+    tick();
+  </script>
+
 </body>
 </html>

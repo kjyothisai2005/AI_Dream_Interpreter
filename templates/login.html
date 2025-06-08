@@ -1,18 +1,42 @@
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
-    <link rel="stylesheet" href="../static/style.css"/>
+    <link rel="stylesheet" href="../static/login.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
 </head>
 <body>
-    <h2>Login</h2>
-<form method="POST">
-    Username: <input type="text" name="username"><br>
-    Password: <input type="password" name="password"><br>
-    <button type="submit">Login</button>
-</form>
-<a href="/register">Register</a>
+    <div class="container">
+        <div class="curved-shape"></div>
+         <div class="curved-shape2"></div>
+        <div class="form-box Login">
+            <h2 class="animation" style="--D:0">Login</h2>
+            <form method="post">
+                <div class="input-box animation" style="--D:1">
+                    <input type="text" name="username" required>
+                    <label for="">Username</label>
+                    <i class="bx bxs-user"></i>
+                </div>
+                <div class="input-box animation" style="--D:2">
+                    <input type="password" name="password" required>
+                    <label for="">Password</label>
+                    <i class="bx bxs-lock-alt"></i>
+                </div>
+                <div class="input-box animation" style="--D:3">
+                    <button class="btn" type="submit">Login</button>
+                </div>
+                <div class="regi-link animation" style="--D:4">
+                    <p>Don't have an account ? <a href="/register">Sign Up</a></p>
+                </div>
+            </form>
+        </div>
+        <div class="info-content Login">
+            <h2 class="animation" style="--D:0">Welcome Back!</h2>
+            <p class="animation" style="--D:1"></p>
+        </div>
+        
+    </div>
+    
 </body>
 </html>
