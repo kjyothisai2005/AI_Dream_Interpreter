@@ -1,0 +1,461 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Dream Interpretation History</title>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: Cambria, serif; }
+    body { background: black; color: #fff; padding-top: 90px; }
+    .navbar {
+      width:100%; position:fixed; top:0; left:0;
+      background:#111; border-bottom:2px solid #ff2770;
+      display:flex; justify-content:space-between; align-items:center;
+      padding:15px 20px; z-index:1000;
+    }
+    .navbar h1 { color:#ff2770; font-size:20px; }
+    .navbar-icons { display:flex; gap:15px; }
+    .navbar-icons i { font-size:24px; color:#ff2770; cursor:pointer; }
+    .container { max-width:700px; margin:0 auto; padding:0 20px; }
+    .history-item {
+      background:#1a1a1a; border:1px solid #ff2770;
+      border-radius:8px; padding:15px; margin-bottom:15px;
+    }
+    .history-item h3 { color: #ff2770; margin-bottom:10px; }
+    .back-btn {
+      display:inline-block; margin:20px 0; padding:10px 20px;
+      border:2px solid #ff2770; border-radius:20px; color:#fff;
+      text-decoration:none; font-weight:bold;
+      transition:0.3s;
+    }
+    .back-btn:hover { background:#ff2770; color:#000; }
+  </style>
+</head>
+<body>
+
+ 
+  <div class="navbar">
+    <h1>Dream Interpreter</h1>
+    <div class="navbar-icons">
+      <a href="/dashboard"><i class="fas fa-home" title="Home"></i></a>
+      <i class="fas fa-user account-icon" id="account-icon" title="Profile"></i>
+    </div>
+  </div>
+
+  
+  <div id="profile-dropdown" style="display:none; position:absolute; top:65px; right:20px; background:#111; border:1px solid #ff2770; padding:15px; border-radius:8px; z-index:1001;">
+    <p><strong>Name:</strong> {{ name }}</p>
+    <p><strong>Email:</strong> {{ email }}</p>
+    <p><strong>Phone:</strong> {{ phone }}</p>
+    <form method="POST" action="/logout">
+      <button type="submit" class="btn">Logout</button>
+    </form>
+  </div>
+
+  <div class="container">
+    <h2 style="text-align:center; color:#ff2770; margin-bottom:20px;">Your Interpretation History</h2>
+
+    {% if dreams %}
+      {% for dream, interp, ts in dreams %}
+        <div class="history-item">
+          <h3>{{ ts }}</h3>
+          <p><strong>Dream:</strong> {{ dream }}</p>
+          <p><strong>Interpretation:</strong> {{ interp }}</p>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p>No history yet. Interpret some dreams!</p>
+    {% endif %}
+
+    <a href="/dashboard" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+  </div>
+
+  <script>
+    // Toggle profile dropdown
+    document.getElementById('account-icon').addEventListener('click', () => {
+      const dd = document.getElementById('profile-dropdown');
+      dd.style.display = dd.style.display === 'block' ? 'none' : 'block';
+    });
+    // Hide when clicking outside
+    document.addEventListener('click', e => {
+      const dd = document.getElementById('profile-dropdown');
+      if (!e.target.closest('#profile-dropdown') && !e.target.closest('#account-icon'))
+        dd.style.display = 'none';
+    });
+  </script>
+
+</body>
+</html> -->
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dream History</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: 'Cambria';
+      margin: 0;
+      padding: 0;
+    }
+
+    .navbar {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #111;
+      padding: 15px 20px;
+      border-bottom: 2px solid #ff2770;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+    }
+
+    .navbar h1 {
+      color: #ff2770;
+      font-size: 20px;
+    }
+
+    .navbar-icons {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .navbar-icons i {
+      font-size: 24px;
+      color: #ff2770;
+      cursor: pointer;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 90px auto 20px;
+      padding: 0 20px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #ff2770;
+      margin-bottom: 25px;
+    }
+
+    .history-item {
+      background: #1a1a1a;
+      border: 1px solid #ff2770;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+
+    .history-item h4 {
+      color: #ff2770;
+      margin-bottom: 8px;
+    }
+
+    .btn {
+      background: transparent;
+      color: #fff;
+      border: 2px solid #ff2770;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-weight: 600;
+      cursor: pointer;
+      display: block;
+      margin: 0 auto;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #ff2770;
+      color: black;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <h1>Dream Interpreter</h1>
+    <div class="navbar-icons">
+      <i class="fas fa-arrow-left" onclick="window.location.href='/dashboard'" title="Back to Dashboard"></i>
+    </div>
+  </div>
+
+  <div class="container">
+    <h2>Your Dream Interpretation History</h2>
+
+    {% if dreams %}
+      {% for dream in dreams %}
+        <div class="history-item">
+          <h4>{{ dream.timestamp }}</h4>
+          <p><strong>Dream:</strong> {{ dream.dream_text }}</p>
+          <p><strong>Interpretation:</strong> {{ dream.interpretation }}</p>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p style="text-align: center;">No dream history found.</p>
+    {% endif %}
+
+    <button class="btn" onclick="window.location.href='/dashboard'">Back to Dashboard</button>
+  </div>
+
+</body>
+</html> -->
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dream History</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: Cambria, serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .navbar {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #111;
+      padding: 15px 20px;
+      border-bottom: 2px solid #ff2770;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+    }
+
+    .navbar h1 {
+      color: #ff2770;
+      font-size: 20px;
+    }
+
+    .navbar-icons {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .navbar-icons i {
+      font-size: 24px;
+      color: #ff2770;
+      cursor: pointer;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 90px auto 30px;
+      padding: 0 20px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #ff2770;
+      margin-bottom: 25px;
+    }
+
+    .history-item {
+      background: #1a1a1a;
+      border: 1px solid #ff2770;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+
+    .history-item h4 {
+      color: #ff2770;
+      margin-bottom: 8px;
+    }
+
+    .btn {
+      background: transparent;
+      color: #fff;
+      border: 2px solid #ff2770;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-weight: 600;
+      cursor: pointer;
+      display: block;
+      margin: 20px auto 0;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #ff2770;
+      color: black;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <h1>Dream Interpreter</h1>
+    <div class="navbar-icons">
+      <i class="fas fa-arrow-left" onclick="window.location.href='/dashboard'" title="Back to Dashboard"></i>
+    </div>
+  </div>
+
+  <div class="container">
+    <h2>Your Dream Interpretation History</h2>
+
+    {% if dreams and dreams|length > 0 %}
+      {% for dream in dreams %}
+        <div class="history-item">
+          <h4>{{ dream.timestamp }}</h4>
+          <p><strong>Dream:</strong> {{ dream.dream_text }}</p>
+          <p><strong>Interpretation:</strong> {{ dream.interpretation }}</p>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p style="text-align: center;">No dream history found.</p>
+    {% endif %}
+
+    <button class="btn" onclick="window.location.href='/dashboard'">Back to Dashboard</button>
+  </div>
+
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dream History</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: Cambria, serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .navbar {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #111;
+      padding: 15px 20px;
+      border-bottom: 2px solid #ff2770;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+    }
+
+    .navbar h1 {
+      color: #ff2770;
+      font-size: 20px;
+    }
+
+    .navbar-icons {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .navbar-icons i {
+      font-size: 24px;
+      color: #ff2770;
+      cursor: pointer;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 90px auto 30px;
+      padding: 0 20px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #ff2770;
+      margin-bottom: 25px;
+    }
+
+    .history-item {
+      background: #1a1a1a;
+      border: 1px solid #ff2770;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+
+    .history-item h4 {
+      color: #ff2770;
+      margin-bottom: 8px;
+    }
+
+    .btn {
+      background: transparent;
+      color: #fff;
+      border: 2px solid #ff2770;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-weight: 600;
+      cursor: pointer;
+      display: block;
+      margin: 20px auto 0;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background: linear-gradient(#ff2770,#25252b);
+      color: #fff;
+    }
+
+    .no-history {
+      text-align: center;
+      font-style: italic;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <h1>Dream Interpreter</h1>
+    <div class="navbar-icons">
+      <i class="fas fa-arrow-left" onclick="window.location.href='/dashboard'" title="Back to Dashboard"></i>
+    </div>
+  </div>
+
+  <div class="container">
+    <h2>Your Dream Interpretation History</h2>
+
+    {% if dreams and dreams|length > 0 %}
+      {% for dream in dreams %}
+        <div class="history-item">
+          <h4>{{ dream[2] }}</h4>
+          <p><strong>Dream:</strong> {{ dream[0] }}</p>
+          <p><strong>Interpretation:</strong> {{ dream[1] }}</p>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p class="no-history">No dream history found.</p>
+    {% endif %}
+
+    <button class="btn" onclick="window.location.href='/dashboard'">Back to Dashboard</button>
+  </div>
+
+</body>
+</html>
