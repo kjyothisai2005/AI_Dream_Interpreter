@@ -1383,7 +1383,7 @@
   </script>
 </body>
 </html> -->
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -1391,180 +1391,6 @@
   <title>Dream Interpreter</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 <link rel="stylesheet" href="../static/index.css"/>
-  <!-- <style>
-    * {
-      font-family: 'Cambria';
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      background-color: black;
-      color: #fff;
-    }
-
-    .navbar {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background-color: #111;
-      padding: 15px 20px;
-      border-bottom: 2px solid #ff2770;
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 1000;
-    }
-
-    .navbar h1 {
-      color: #ff2770;
-      font-size: 20px;
-    }
-
-    .navbar-icons {
-      display: flex;
-      gap: 15px;
-      align-items: center;
-    }
-
-    .navbar-icons i {
-      font-size: 24px;
-      color: #ff2770;
-      cursor: pointer;
-    }
-
-    #profile-dropdown {
-      position: absolute;
-      top: 65px;
-      right: 20px;
-      background: #111;
-      border: 1px solid #ff2770;
-      padding: 15px;
-      border-radius: 8px;
-      display: none;
-      z-index: 1001;
-    }
-
-    #profile-dropdown p {
-      margin: 5px 0;
-    }
-
-    #profile-dropdown .btn {
-      width: 100%;
-      margin-top: 10px;
-    }
-
-    .container {
-      max-width: 700px;
-      margin: 90px auto 40px;
-      padding: 0 20px;
-    }
-
-    h2 {
-      text-align: center;
-      color: #ff2770;
-      margin: 25px 0 20px;
-    }
-
-    #dreamForm {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-    }
-
-    .textarea-container {
-      position: relative;
-      width: 100%;
-    }
-
-    #dreamText {
-      width: 100%;
-      padding: 12px 45px 12px 15px;
-      font-size: 16px;
-      border-radius: 8px;
-      border: 1.8px solid #ff2770;
-      resize: vertical;
-      min-height: 120px;
-      margin-bottom: 15px;
-      background-color: transparent;
-      color: white;
-    }
-
-    #dreamText:focus {
-      outline: none;
-      box-shadow: 0 0 5px #ff2770aa;
-    }
-
-    #micButton {
-      position: absolute;
-      right: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      border: none;
-      background: transparent;
-      cursor: pointer;
-      font-size: 24px;
-      color: #ff2770;
-    }
-
-    .btn {
-      width: 200px;
-      background: transparent;
-      border-radius: 20px;
-      cursor: pointer;
-      font-size: 16px;
-      font-weight: 600;
-      border: 2px solid #ff2770;
-      color: #fff;
-      margin-top: 10px;
-    }
-
-    .btn:hover {
-      background-color: #ff2770;
-      color: black;
-    }
-
-    #interpretation {
-      font-weight: bold;
-      background-color: #222;
-      padding: 12px;
-      border-radius: 8px;
-      margin-top: 20px;
-      min-height: 40px;
-      white-space: pre-wrap;
-    }
-
-    #recordingIndicator {
-      color: red;
-      font-weight: bold;
-      margin-top: 10px;
-      display: none;
-      text-align: center;
-    }
-
-    .dream-history {
-      margin-top: 40px;
-    }
-
-    .dream-entry {
-      background-color: #1a1a1a;
-      border: 1px solid #ff2770;
-      border-radius: 8px;
-      padding: 15px;
-      margin-bottom: 15px;
-    }
-
-    .dream-entry p {
-      margin-bottom: 5px;
-    }
-
-    .dream-entry strong {
-      color: #ff2770;
-    }
-  </style> -->
 </head>
 <body>
   <div class="navbar">
@@ -1647,6 +1473,195 @@
       });
     }
 
+    document.getElementById('account-icon').addEventListener('click', () => {
+      const dropdown = document.getElementById('profile-dropdown');
+      dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('#profile-dropdown') && !e.target.closest('#account-icon')) {
+        document.getElementById('profile-dropdown').style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dream Interpreter</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="../static/index.css"/>
+</head>
+<body>
+  <div class="navbar">
+    <h1>Dream Interpreter</h1>
+    <div class="navbar-icons">
+      <i class="fas fa-history" onclick="window.location.href='/history'" title="View History"></i>
+      <i class="fas fa-user" id="account-icon" title="Account Info"></i>
+    </div>
+  </div>
+
+  <div id="profile-dropdown">
+    <p><strong>Name:</strong> {{ name }}</p>
+    <p><strong>Email:</strong> {{ email }}</p>
+    <p><strong>Phone:</strong> {{ phone }}</p>
+    <form method="POST" action="/logout">
+      <button type="submit" class="btn">Logout</button>
+    </form>
+  </div>
+
+  <div class="container"><br><br><br><br>
+    <h2>AI Dream Interpreter</h2><br><br>
+
+    <!-- Dream Text Form -->
+    <!-- <form id="dreamForm" onsubmit="event.preventDefault(); submitDream();">
+      <div class="textarea-container">
+        <textarea id="dreamText" placeholder="Describe your dream here..."></textarea>
+        <button type="button" id="micButton" onclick="startRecognition()" title="Speak your dream">
+          <i class="fas fa-microphone"></i>
+        </button>
+         <label for="dreamImage" title="Upload an image" style="cursor: pointer; margin-left: 10px;">
+      <i class="fas fa-upload"></i>
+    </label>
+    <input type="file" id="dreamImage" name="image" accept="image/*" style="display: none;" onchange="uploadImage()" />
+      </div>
+      <button type="submit" class="btn">Interpret</button>
+    </form>
+
+    <div id="recordingIndicator">🔴 Listening...</div>
+    <div id="interpretation"></div>
+
+    <hr><br>
+
+    <div id="imageAnalysisResult" style="margin-top: 20px;"></div> -->
+  
+<!-- <form id="dreamForm" onsubmit="event.preventDefault(); submitDream();">
+  <div class="textarea-container" style="position: relative;">
+    <textarea id="dreamText" placeholder="Describe your dream here..." 
+              style="padding-right: 70px; padding-bottom: 40px;"></textarea>
+
+   
+    <button type="button" id="micButton" onclick="startRecognition()" title="Speak your dream"
+      style="position: absolute; bottom: 10px; right: 40px; background: none; border: none; cursor: pointer;">
+      <i class="fas fa-microphone"></i>
+    </button>
+
+    
+    <button type="button" id="micButton" > <input type="file" id="dreamImage" name="image" accept="image/*"
+      style="display: none;" onchange="uploadImage()" />
+      <i class="fas fa-upload"></i>
+     </button>
+   
+  </div>
+
+  <button type="submit" class="btn">Interpret</button>
+</form> -->
+<form id="dreamForm" onsubmit="event.preventDefault(); submitDream();">
+  <div class="textarea-container" style="position: relative;">
+    <!-- Dream Textarea -->
+    <textarea id="dreamText" placeholder="Describe your dream here..." 
+              ></textarea>
+
+    <!-- Mic Icon -->
+    <button type="button" onclick="startRecognition()" title="Speak your dream" id="micButton">
+      <i class="fas fa-microphone"></i>
+    </button>
+
+    <!-- Upload Icon Label (works as a button) -->
+    <label for="dreamImage" id="uploadButton">
+      <i class="fas fa-upload"></i>
+    </label>
+    
+    <!-- Hidden File Input -->
+    <input type="file" id="dreamImage" name="image" accept="image/*"
+           style="display: none;" onchange="uploadImage()" />
+  </div>
+
+  <!-- Submit Button -->
+  <button type="submit" class="btn">Interpret</button>
+</form>
+
+<div id="recordingIndicator" style="display:none;">🔴 Listening...</div>
+<div id="interpretation"></div>
+
+<hr><br>
+
+<div id="imageAnalysisResult" style="margin-top: 20px;"></div>
+</div>
+  <script>
+    // Speech recognition setup
+    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    recognition.lang = 'en-US';
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    function startRecognition() {
+      recognition.start();
+    }
+
+    recognition.onstart = () => {
+      document.getElementById('recordingIndicator').style.display = 'block';
+    };
+
+    recognition.onend = () => {
+      document.getElementById('recordingIndicator').style.display = 'none';
+    };
+
+    recognition.onresult = (event) => {
+      const transcript = event.results[0][0].transcript;
+      document.getElementById('dreamText').value = transcript;
+      submitDream();
+    };
+
+    function submitDream() {
+      const text = document.getElementById('dreamText').value.trim();
+      if (!text) {
+        alert("Please enter or speak a dream first.");
+        return;
+      }
+
+      fetch('/interpret', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ dream_text: text })
+      })
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('interpretation').textContent = data.interpretation || 'Error interpreting dream.';
+      })
+      .catch(error => {
+        document.getElementById('interpretation').textContent = 'An error occurred: ' + error;
+      });
+    }
+
+    function uploadImage() {
+      const fileInput = document.getElementById('dreamImage');
+      const file = fileInput.files[0];
+      if (!file) {
+        alert("Please select an image to upload.");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("image", file);
+
+      fetch('/upload_image', {
+        method: 'POST',
+        body: formData
+      })
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('imageAnalysisResult').textContent = data.analysis || data.error || 'Image analysis failed.';
+      })
+      .catch(error => {
+        document.getElementById('imageAnalysisResult').textContent = 'An error occurred: ' + error;
+      });
+    }
+
+    // Profile dropdown logic
     document.getElementById('account-icon').addEventListener('click', () => {
       const dropdown = document.getElementById('profile-dropdown');
       dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
