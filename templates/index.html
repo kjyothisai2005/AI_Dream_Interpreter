@@ -1572,7 +1572,7 @@
 
     <!-- Upload Icon Label (works as a button) -->
     <label for="dreamImage" id="uploadButton">
-      <i class="fas fa-upload"></i>
+      <i class="fa fa-upload"></i>
     </label>
     
     <!-- Hidden File Input -->
@@ -1583,15 +1583,19 @@
   <!-- Submit Button -->
   <button type="submit" class="btn">Interpret</button>
 </form>
+<button id="read-aloud-btn" onclick="readAloud()"><i class="fa fa-volume-high"></i></button>
+<button id="stopBtn" onclick="stopSpeaking()" style="display:none;"><i class="fa fa-circle-pause"></i></button>
 
 <div id="recordingIndicator" style="display:none;">🔴 Listening...</div>
-<div id="interpretation"></div>
+<div id="interpretation">
+   
+</div>
 
 <hr><br>
 
 <div id="imageAnalysisResult" style="margin-top: 20px;"></div>
 </div>
-  <script>
+   <script>
     // Speech recognition setup
     const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
     recognition.lang = 'en-US';
@@ -1637,6 +1641,28 @@
       });
     }
 
+    function readAloud() {
+    const text = document.getElementById('interpretation').innerText;
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'en-US';
+     // Toggle buttons
+    document.getElementById('read-aloud-btn').style.display = 'none';
+    document.getElementById('stopBtn').style.display = 'inline-block';
+
+    // When reading ends, switch buttons back
+    utterance.onend = function () {
+      document.getElementById('read-aloud-btn').style.display = 'inline-block';
+      document.getElementById('stopBtn').style.display = 'none';
+    };
+    speechSynthesis.speak(utterance);
+  }
+function stopSpeaking() {
+    speechSynthesis.cancel(); // stops speech immediately
+
+    // Toggle buttons back
+    document.getElementById('read-aloud-btn').style.display = 'inline-block';
+    document.getElementById('stopBtn').style.display = 'none';
+  }
     function uploadImage() {
       const fileInput = document.getElementById('dreamImage');
       const file = fileInput.files[0];
@@ -1654,10 +1680,10 @@
       })
       .then(res => res.json())
       .then(data => {
-        document.getElementById('imageAnalysisResult').textContent = data.analysis || data.error || 'Image analysis failed.';
+        document.getElementById('interpretation').textContent = data.analysis || data.error || 'Image analysis failed.';
       })
       .catch(error => {
-        document.getElementById('imageAnalysisResult').textContent = 'An error occurred: ' + error;
+        document.getElementById('interpretation').textContent = 'An error occurred: ' + error;
       });
     }
 
@@ -1672,6 +1698,101 @@
         document.getElementById('profile-dropdown').style.display = 'none';
       }
     });
-  </script>
+  </script> 
+  <!-- <script>
+  // Speech recognition setup
+  const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+  recognition.lang = 'en-US';
+  recognition.interimResults = false;
+  recognition.maxAlternatives = 1;
+
+  function startRecognition() {
+    recognition.start();
+  }
+
+  recognition.onstart = () => {
+    document.getElementById('recordingIndicator').style.display = 'block';
+  };
+
+  recognition.onend = () => {
+    document.getElementById('recordingIndicator').style.display = 'none';
+  };
+
+  recognition.onresult = (event) => {
+    const transcript = event.results[0][0].transcript;
+    document.getElementById('dreamText').value = transcript;
+    submitDream();
+  };
+
+  function submitDream() {
+    const text = document.getElementById('dreamText').value.trim();
+    if (!text) {
+      alert("Please enter or speak a dream first.");
+      return;
+    }
+
+    fetch('/interpret', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ dream_text: text })
+    })
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById('interpretation').textContent = data.interpretation || 'Error interpreting dream.';
+
+      // 📢 Read Aloud: Show button and save text
+      document.getElementById('readAloudBtn').style.display = 'inline-block';
+      window.latestInterpretation = data.interpretation || '';
+    })
+    .catch(error => {
+      document.getElementById('interpretation').textContent = 'An error occurred: ' + error;
+    });
+  }
+
+  function uploadImage() {
+    const fileInput = document.getElementById('dreamImage');
+    const file = fileInput.files[0];
+    if (!file) {
+      alert("Please select an image to upload.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("image", file);
+
+    fetch('/upload_image', {
+      method: 'POST',
+      body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById('imageAnalysisResult').textContent = data.analysis || data.error || 'Image analysis failed.';
+    })
+    .catch(error => {
+      document.getElementById('imageAnalysisResult').textContent = 'An error occurred: ' + error;
+    });
+  }
+
+  // 📢 Read Aloud function
+  function readAloud() {
+    if (!window.latestInterpretation) return;
+    const utterance = new SpeechSynthesisUtterance(window.latestInterpretation);
+    utterance.lang = 'en-US';
+    speechSynthesis.speak(utterance);
+  }
+
+  // Profile dropdown logic
+  document.getElementById('account-icon').addEventListener('click', () => {
+    const dropdown = document.getElementById('profile-dropdown');
+    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('#profile-dropdown') && !e.target.closest('#account-icon')) {
+      document.getElementById('profile-dropdown').style.display = 'none';
+    }
+  });
+</script> -->
+
 </body>
 </html>

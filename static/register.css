@@ -3,21 +3,21 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Cambria';
-    color: #fff;
+    color: #222;
 }
 body{
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: #25252b;
+    background: #fff;
 }
 .container{
     position: relative;
     width: 750px;
     height: 450px;
-    border: 2px solid #ff2770;
-    box-shadow: 0 0 25px #ff2770;
+    border: 2px solid #b0318e;
+    box-shadow: 0 0 25px #b0318e;
     overflow: hidden;
 }
 .container .form-box{
@@ -75,14 +75,14 @@ body{
     border: none;
     outline: none;
     font-size: 16px;
-    color: #fff;
+    color: #222;
     font-weight: 600;
-    border-bottom: 2px solid #fff;
+    border-bottom: 2px solid #222;
     padding-right: 23px;
     transition: .5s;
 }
 .input-box input:focus,.input-box input:valid{
-    border-bottom: 2px solid #ff2770;
+    border-bottom: 2px solid #b0318e;
 }
 .input-box label{
     position: absolute;
@@ -90,12 +90,12 @@ body{
     left: 0;
     transform: translateY(-50%);
     font-size: 16px;
-    color: #fff;
+    color: #222;
     transition: .5s;
 }
 .input-box input:focus ~ label,.input-box input:valid ~ label{
     top: -5px;
-    color: #ff2770;
+    color: #b0318e;
 }
 .input-box i{
     position: absolute;
@@ -106,7 +106,7 @@ body{
     transition: .5s;
 }
 .input-box input:focus ~ i,.input-box input:valid ~ i{
-    color: #ff2770;
+    color: #b0318e;
 }
 .btn{
     position: relative;
@@ -117,16 +117,17 @@ body{
     cursor: pointer;
     font-size: 16px;
     font-weight: 600;
-    border: 2px solid #ff2770;
+    border: 2px solid #b0318e;
     overflow: hidden;
     z-index: 1;
+    color: #fff;
 }
 .btn::before{
     content: "";
     position: absolute;
     height: 300%;
     width: 100%;
-    background: linear-gradient(#25252b,#ff2770,#25252b,#ff2770);
+    background: linear-gradient(#25252b,#b0318e,#25252b,#b0318e);
     top: -100%;
     left: 0;
     z-index: -1;
@@ -142,7 +143,7 @@ body{
 }
 .regi-link a{
     text-decoration: none;
-    color: #ff2770;
+    color: #b0318e;
     font-weight: 600;
 }
 .regi-link a:hover{
@@ -197,7 +198,7 @@ body{
     top: -5px;
     height: 550px;
     width: 850px;
-    background: linear-gradient(45deg,#25252b,#ff2770);
+    background: linear-gradient(45deg,#25252b,#b0318e);
     transform: rotate(10deg) skewY(40deg);
     transform-origin: bottom right;
     transition: 1.5s ease;
@@ -208,7 +209,7 @@ body{
 .container .curved-shape2{
      position:absolute;inset:0;        /* fill */
   width:60%;                        /* left portion */
-  background:linear-gradient(135deg,#ff2770 0%,#25252b 100%);
+  background:linear-gradient(135deg,#b0318e 0%,#25252b 100%);
   clip-path:polygon(0 0,100% 0,0 130%);
   transition: 1.5s ease;
 }

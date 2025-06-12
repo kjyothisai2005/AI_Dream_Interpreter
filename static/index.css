@@ -6,8 +6,8 @@
     }
 
     body {
-      background-color: black;
-      color: #fff;
+      background-color: #fff;
+      color: #222;
       margin: 0;
       padding: 0;
     }
@@ -23,9 +23,9 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background-color: #111;
+      background-color: #fff;
       padding: 15px 20px;
-      border-bottom: 2px solid #ff2770;
+      border-bottom: 2px solid #b0318e;
       position: fixed;
       top: 0;
       left: 0;
@@ -33,7 +33,7 @@
     }
 
     .navbar h1 {
-      color: #ff2770;
+      color: #b0318e;
       font-size: 20px;
     }
 
@@ -46,13 +46,13 @@
 
      .navbar-icons i {
       font-size: 24px;
-      color: #ff2770;
+      color: #b0318e;
       cursor: pointer;
     }
     .account-icon,
     .history-icon {
       font-size: 24px;
-      color: #ff2770;
+      color: #b0318e;
       cursor: pointer;
     }
 
@@ -60,8 +60,8 @@
       position: absolute;
       top: 65px;
       right: 20px;
-      background: #111;
-      border: 1px solid #ff2770;
+      background: #fff;
+      border: 1px solid #b0318e;
       padding: 15px;
       border-radius: 8px;
       display: none;
@@ -83,7 +83,7 @@
 
     h2 {
       text-align: center;
-      color: #ff2770;
+      color: #b0318e;
       margin: 25px 0 20px;
     }
 
@@ -105,17 +105,17 @@
       padding: 12px 45px 12px 15px;
       font-size: 16px;
       border-radius: 8px;
-      border: 1.8px solid #ff2770;
+      border: 1.8px solid #b0318e;
       resize: vertical;
       min-height: 120px;
       margin-bottom: 15px;
       background-color: transparent;
-      color: white;
+      color: #222;
     }
 
     #dreamText:focus {
       outline: none;
-      box-shadow: 0 0 5px #ff2770aa;
+      box-shadow: 0 0 5px #b0318e;
     }
 
     #micButton {
@@ -127,7 +127,7 @@
       background: transparent;
       cursor: pointer;
       font-size: 24px;
-      color: #ff2770;
+      color: #b0318e;
     }
       #uploadButton {
       position: absolute;
@@ -138,7 +138,7 @@
       background: transparent;
       cursor: pointer;
       font-size: 24px;
-      color: #ff2770;
+      color: #b0318e;
     }
 
 
@@ -151,7 +151,7 @@
       cursor: pointer;
       font-size: 16px;
       font-weight: 600;
-      border: 2px solid #ff2770;
+      border: 2px solid #b0318e;
       overflow: hidden;
       z-index: 1;
       color: #fff;
@@ -162,7 +162,7 @@
       position: absolute;
       height: 300%;
       width: 100%;
-      background: linear-gradient(#25252b, #ff2770, #25252b, #ff2770);
+      background: linear-gradient(#25252b, #b0318e, #25252b, #b0318e);
       top: -100%;
       left: 0;
       z-index: -1;
@@ -175,7 +175,7 @@
 
     #interpretation {
       font-weight: bold;
-      background-color: #222;
+      background-color: #f3efef;
       padding: 12px;
       border-radius: 8px;
       margin-top: 20px;
@@ -197,18 +197,29 @@
     }
 
     .history-item {
-      background: #1a1a1a;
-      border: 1px solid #ff2770;
+      background: #fff;
+      border: 1px solid #b0318e;
       border-radius: 8px;
       padding: 10px;
       margin-bottom: 10px;
     }
 
     .history-item h4 {
-      color: #ff2770;
+      color: #b0318e;
       margin-bottom: 5px;
     }
 
     .history-icon {
       cursor: pointer;
+    }
+
+    #read-aloud-btn{
+      background: transparent;
+      color: #b0318e;
+      border: none;
+    }
+    #stopBtn{
+       background: transparent;
+      color: #b0318e;
+      border: none;
     }
